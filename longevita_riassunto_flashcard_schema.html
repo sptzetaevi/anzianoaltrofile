@@ -1,0 +1,474 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Longevità e invecchiamento - Riassunto B1, flashcard e schema</title>
+  <style>
+    :root{
+      --bg:#f6f7fb;
+      --card:#ffffff;
+      --ink:#1f2937;
+      --muted:#5b6472;
+      --blue:#2563eb;
+      --blue2:#dbeafe;
+      --green:#15803d;
+      --green2:#dcfce7;
+      --orange:#c2410c;
+      --orange2:#ffedd5;
+      --purple:#7c3aed;
+      --purple2:#ede9fe;
+      --red:#b91c1c;
+      --red2:#fee2e2;
+      --line:#cbd5e1;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:var(--bg);
+      color:var(--ink);
+      line-height:1.6;
+      font-size:19px;
+    }
+    header{
+      background:linear-gradient(135deg,#1d4ed8,#7c3aed);
+      color:white;
+      padding:38px 20px;
+      text-align:center;
+    }
+    header h1{margin:0 0 10px;font-size:clamp(2rem,5vw,3.5rem);line-height:1.1}
+    header p{margin:0 auto;max-width:900px;font-size:1.15rem;opacity:.95}
+    nav{
+      position:sticky;
+      top:0;
+      z-index:5;
+      display:flex;
+      gap:10px;
+      justify-content:center;
+      flex-wrap:wrap;
+      background:rgba(255,255,255,.95);
+      border-bottom:1px solid var(--line);
+      padding:10px;
+      backdrop-filter:blur(8px);
+    }
+    nav a{
+      color:var(--blue);
+      text-decoration:none;
+      font-weight:700;
+      border:1px solid var(--blue2);
+      background:#eff6ff;
+      padding:8px 12px;
+      border-radius:999px;
+      font-size:16px;
+    }
+    main{max-width:1120px;margin:0 auto;padding:24px 14px 60px}
+    section{
+      background:var(--card);
+      border:1px solid #e5e7eb;
+      border-radius:24px;
+      padding:24px;
+      margin:22px 0;
+      box-shadow:0 8px 24px rgba(15,23,42,.06);
+    }
+    h2{font-size:2rem;margin:0 0 18px;border-left:8px solid var(--blue);padding-left:14px}
+    h3{font-size:1.35rem;margin:26px 0 8px;color:#111827}
+    .lead{
+      background:#eef2ff;
+      border-left:6px solid var(--purple);
+      padding:16px 18px;
+      border-radius:14px;
+      font-weight:600;
+    }
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(270px,1fr));
+      gap:16px;
+    }
+    .box{
+      border:1px solid #e5e7eb;
+      border-radius:18px;
+      padding:18px;
+      background:#fff;
+    }
+    .box.blue{background:var(--blue2);border-color:#bfdbfe}
+    .box.green{background:var(--green2);border-color:#bbf7d0}
+    .box.orange{background:var(--orange2);border-color:#fed7aa}
+    .box.purple{background:var(--purple2);border-color:#ddd6fe}
+    .box.red{background:var(--red2);border-color:#fecaca}
+    ul{padding-left:24px;margin-top:8px}
+    li{margin:6px 0}
+    strong{font-weight:800}
+    .tag{
+      display:inline-block;
+      font-size:.88rem;
+      padding:3px 9px;
+      border-radius:999px;
+      background:#e5e7eb;
+      color:#374151;
+      font-weight:700;
+      margin-bottom:8px;
+    }
+
+    /* Flashcard */
+    .cards{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+      gap:18px;
+      margin-top:18px;
+    }
+    .flashcard{
+      min-height:190px;
+      perspective:1000px;
+      cursor:pointer;
+    }
+    .flashcard-inner{
+      position:relative;
+      width:100%;
+      height:100%;
+      min-height:190px;
+      transition:transform .55s;
+      transform-style:preserve-3d;
+    }
+    .flashcard.flipped .flashcard-inner{transform:rotateY(180deg)}
+    .front,.back{
+      position:absolute;
+      inset:0;
+      backface-visibility:hidden;
+      border-radius:20px;
+      padding:20px;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      border:2px solid #dbeafe;
+      box-shadow:0 8px 18px rgba(15,23,42,.08);
+    }
+    .front{
+      background:#eff6ff;
+      color:#1e3a8a;
+      font-weight:800;
+      font-size:1.35rem;
+      text-align:center;
+    }
+    .back{
+      background:#ffffff;
+      color:var(--ink);
+      transform:rotateY(180deg);
+      font-size:1.02rem;
+    }
+    .hint{text-align:center;color:var(--muted);font-size:16px;margin-top:0}
+
+    /* Schema grafico */
+    .schema-wrap{
+      overflow:auto;
+      padding:8px;
+    }
+    .tree{
+      min-width:920px;
+      text-align:center;
+      padding:10px 0 20px;
+    }
+    .node{
+      display:inline-block;
+      padding:14px 18px;
+      border-radius:18px;
+      border:3px solid #1f2937;
+      background:white;
+      font-weight:800;
+      line-height:1.25;
+      box-shadow:0 6px 14px rgba(0,0,0,.07);
+    }
+    .root{
+      background:#1d4ed8;
+      color:white;
+      border-color:#1e3a8a;
+      font-size:1.55rem;
+      padding:18px 32px;
+    }
+    .level{
+      display:flex;
+      justify-content:center;
+      gap:22px;
+      margin-top:42px;
+      position:relative;
+    }
+    .branch{
+      width:205px;
+      position:relative;
+    }
+    .branch:before{
+      content:"";
+      position:absolute;
+      top:-42px;
+      left:50%;
+      width:3px;
+      height:42px;
+      background:var(--line);
+    }
+    .children{
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      margin-top:16px;
+      align-items:center;
+    }
+    .child{
+      width:100%;
+      padding:10px 12px;
+      border-radius:14px;
+      background:#f8fafc;
+      border:1px solid #cbd5e1;
+      font-size:16px;
+      font-weight:700;
+    }
+    .line-down{
+      width:3px;
+      height:38px;
+      background:var(--line);
+      margin:0 auto;
+    }
+    .horizontal{
+      height:3px;
+      background:var(--line);
+      width:78%;
+      margin:0 auto -1px;
+    }
+    .blueN{background:#dbeafe;border-color:#60a5fa;color:#1e3a8a}
+    .greenN{background:#dcfce7;border-color:#4ade80;color:#14532d}
+    .orangeN{background:#ffedd5;border-color:#fb923c;color:#7c2d12}
+    .purpleN{background:#ede9fe;border-color:#a78bfa;color:#4c1d95}
+    .redN{background:#fee2e2;border-color:#f87171;color:#7f1d1d}
+
+    .print-note{
+      color:var(--muted);
+      font-size:15px;
+      margin-top:16px;
+    }
+    button.print{
+      border:0;
+      background:#111827;
+      color:white;
+      padding:10px 16px;
+      border-radius:999px;
+      font-weight:800;
+      cursor:pointer;
+      margin:10px 0 0;
+    }
+    @media print{
+      nav, button.print{display:none}
+      body{background:white;font-size:15px}
+      section{box-shadow:none;break-inside:avoid}
+      .flashcard{break-inside:avoid}
+    }
+  </style>
+</head>
+<body>
+<header>
+  <h1>Longevità e invecchiamento</h1>
+  <p>Riassunto B1, flashcard e schema grafico per ripassare i concetti principali.</p>
+</header>
+
+<nav>
+  <a href="#riassunto">Riassunto B1</a>
+  <a href="#flashcard">Flashcard</a>
+  <a href="#schema">Schema grafico</a>
+</nav>
+
+<main>
+<section id="riassunto">
+  <h2>Riassunto B1</h2>
+  <p class="lead">
+    La <strong>senescenza</strong> è il processo naturale di invecchiamento. Con il passare del tempo cellule, tessuti e organi diventano meno efficienti. L'invecchiamento non dipende da una sola causa, ma da molti fattori che agiscono insieme.
+  </p>
+
+  <h3>Perché invecchiamo?</h3>
+  <div class="grid">
+    <div class="box blue">
+      <span class="tag">DNA</span>
+      <p>Ogni giorno le cellule subiscono piccoli danni causati da raggi UV, sostanze chimiche, infiammazioni e normali attività del metabolismo. Il corpo ripara molti danni, ma non tutti. Con il tempo alcuni errori restano.</p>
+    </div>
+    <div class="box purple">
+      <span class="tag">Telomeri</span>
+      <p>I <strong>telomeri</strong> proteggono le estremità dei cromosomi. A ogni divisione cellulare si accorciano. Quando diventano troppo corti, la cellula smette di dividersi e invecchia.</p>
+    </div>
+    <div class="box orange">
+      <span class="tag">Radicali liberi</span>
+      <p>Durante la produzione di energia si formano molecole chiamate <strong>radicali liberi</strong>. Se sono troppe, possono danneggiare cellule, proteine e DNA.</p>
+    </div>
+    <div class="box green">
+      <span class="tag">Cellule staminali</span>
+      <p>Le cellule staminali aiutano i tessuti a rigenerarsi. Con l'età diventano meno efficienti e quindi la riparazione del corpo diventa più lenta.</p>
+    </div>
+  </div>
+
+  <h3>Le Blue Zones</h3>
+  <p>
+    Le <strong>Blue Zones</strong> sono zone del mondo dove molte persone vivono a lungo e in buona salute. Il documentario <em>Live to 100</em> di Dan Buettner presenta Okinawa, Sardegna, Icaria, Nicoya e Loma Linda.
+  </p>
+  <p>Il messaggio principale è che la longevità dipende soprattutto dallo <strong>stile di vita quotidiano</strong>, non da una soluzione miracolosa.</p>
+
+  <div class="grid">
+    <div class="box">
+      <h3>Movimento naturale</h3>
+      <p>Le persone longeve camminano, cucinano, lavorano in giardino e fanno attività manuali. Il movimento è parte della vita quotidiana.</p>
+    </div>
+    <div class="box">
+      <h3>Alimentazione semplice</h3>
+      <p>La dieta è ricca di legumi, verdure, frutta e cereali. Si consumano poca carne e pochi cibi industriali.</p>
+    </div>
+    <div class="box">
+      <h3>Relazioni sociali</h3>
+      <p>Famiglia, amici e comunità sono importanti. La solitudine può peggiorare la salute fisica e psicologica.</p>
+    </div>
+    <div class="box">
+      <h3>Scopo nella vita</h3>
+      <p>Avere una ragione per alzarsi al mattino aiuta a mantenere benessere e motivazione anche in età avanzata.</p>
+    </div>
+  </div>
+
+  <h3>Valter Longo</h3>
+  <p>
+    <strong>Valter Longo</strong> è uno studioso italiano della longevità. Si occupa di alimentazione, digiuno, prevenzione delle malattie e invecchiamento.
+  </p>
+  <ul>
+    <li>Propone una dieta prevalentemente vegetale.</li>
+    <li>Consiglia legumi, verdure, cereali integrali, olio d'oliva e frutta secca.</li>
+    <li>È noto per la <strong>dieta mima-digiuno</strong>, un protocollo alimentare con poche calorie per alcuni giorni.</li>
+    <li>Negli anziani ricorda l'importanza delle proteine per proteggere i muscoli.</li>
+  </ul>
+
+  <h3>Umberto Veronesi</h3>
+  <p>
+    <strong>Umberto Veronesi</strong> è stato un importante oncologo italiano. Ha insistito molto sulla prevenzione.
+  </p>
+  <ul>
+    <li>Stop al fumo.</li>
+    <li>Controlli medici e screening.</li>
+    <li>Attività fisica.</li>
+    <li>Alimentazione ricca di frutta, verdura, legumi e cereali integrali.</li>
+  </ul>
+
+  <h3>Come invecchiano gli organi?</h3>
+  <div class="grid">
+    <div class="box blue"><strong>Pelle:</strong> diventa più sottile, secca e meno elastica. Compaiono rughe e macchie.</div>
+    <div class="box green"><strong>Muscoli:</strong> perdono massa e forza. Questo fenomeno si chiama sarcopenia.</div>
+    <div class="box orange"><strong>Ossa:</strong> diventano più fragili. Può comparire osteoporosi.</div>
+    <div class="box purple"><strong>Cuore e vasi:</strong> le arterie diventano meno elastiche e può aumentare la pressione.</div>
+    <div class="box red"><strong>Polmoni:</strong> perdono elasticità e la respirazione sotto sforzo diventa più difficile.</div>
+    <div class="box"><strong>Cervello:</strong> possono rallentare memoria, attenzione e velocità di elaborazione.</div>
+  </div>
+
+  <h3>Principali malattie dell'anziano</h3>
+  <p>
+    Con l'età aumentano alcune malattie. Tra queste ci sono <strong>valvulopatie</strong>, <strong>aterosclerosi</strong>, <strong>ictus</strong>, <strong>BPCO</strong>, <strong>Parkinson</strong>, <strong>demenza</strong>, <strong>Alzheimer</strong>, <strong>edentulia</strong> e <strong>incontinenza</strong>.
+  </p>
+  <ul>
+    <li><strong>Valvulopatie:</strong> problemi delle valvole del cuore. Possono causare affanno e stanchezza.</li>
+    <li><strong>Aterosclerosi:</strong> accumulo di grassi e colesterolo nelle arterie. Può favorire infarto e ictus.</li>
+    <li><strong>Ictus:</strong> danno improvviso al cervello causato da un problema della circolazione.</li>
+    <li><strong>BPCO:</strong> malattia respiratoria cronica, spesso legata al fumo.</li>
+    <li><strong>Parkinson:</strong> malattia che causa tremori, rigidità e lentezza nei movimenti.</li>
+    <li><strong>Alzheimer:</strong> malattia che causa perdita progressiva della memoria e dell'autonomia.</li>
+    <li><strong>Edentulia:</strong> perdita parziale o totale dei denti.</li>
+    <li><strong>Incontinenza:</strong> perdita involontaria di urina o feci.</li>
+  </ul>
+
+  <p class="lead">
+    In conclusione, vivere più a lungo e meglio dipende da molti fattori: genetica, ambiente, movimento, alimentazione, relazioni sociali, prevenzione e controlli sanitari.
+  </p>
+</section>
+
+<section id="flashcard">
+  <h2>Flashcard</h2>
+  <p class="hint">Clicca su una carta per girarla.</p>
+  <div class="cards">
+    <div class="flashcard"><div class="flashcard-inner"><div class="front">Che cos'è la senescenza?</div><div class="back">È il naturale processo di invecchiamento del corpo. Con il tempo cellule, tessuti e organi diventano meno efficienti.</div></div></div>
+    <div class="flashcard"><div class="flashcard-inner"><div class="front">Che cosa sono i telomeri?</div><div class="back">Sono parti del DNA che proteggono i cromosomi. Si accorciano a ogni divisione cellulare.</div></div></div>
+    <div class="flashcard"><div class="flashcard-inner"><div class="front">Che cosa sono i radicali liberi?</div><div class="back">Sono molecole che, se presenti in eccesso, possono danneggiare cellule, proteine e DNA.</div></div></div>
+    <div class="flashcard"><div class="flashcard-inner"><div class="front">Che cosa sono le Blue Zones?</div><div class="back">Sono zone del mondo dove molte persone vivono a lungo e in buona salute.</div></div></div>
+    <div class="flashcard"><div class="flashcard-inner"><div class="front">Quali abitudini favoriscono la longevità?</div><div class="back">Movimento quotidiano, alimentazione semplice, relazioni sociali, scopo nella vita e meno stress.</div></div></div>
+    <div class="flashcard"><div class="flashcard-inner"><div class="front">Chi è Valter Longo?</div><div class="back">È uno studioso italiano della longevità. Si occupa di dieta, digiuno e prevenzione delle malattie.</div></div></div>
+    <div class="flashcard"><div class="flashcard-inner"><div class="front">Che cos'è la dieta mima-digiuno?</div><div class="back">È un protocollo alimentare con poche calorie per alcuni giorni, pensato per imitare alcuni effetti del digiuno.</div></div></div>
+    <div class="flashcard"><div class="flashcard-inner"><div class="front">Chi è Umberto Veronesi?</div><div class="back">È stato un importante oncologo italiano. Ha promosso prevenzione, stop al fumo e alimentazione equilibrata.</div></div></div>
+    <div class="flashcard"><div class="flashcard-inner"><div class="front">Che cos'è la sarcopenia?</div><div class="back">È la perdita progressiva di massa e forza muscolare con l'età.</div></div></div>
+    <div class="flashcard"><div class="flashcard-inner"><div class="front">Che cos'è l'osteoporosi?</div><div class="back">È una condizione in cui le ossa diventano più fragili e aumenta il rischio di fratture.</div></div></div>
+    <div class="flashcard"><div class="flashcard-inner"><div class="front">Che cos'è l'aterosclerosi?</div><div class="back">È l'accumulo di grassi e colesterolo nelle arterie. Può favorire infarto e ictus.</div></div></div>
+    <div class="flashcard"><div class="flashcard-inner"><div class="front">Che cos'è l'ictus?</div><div class="back">È un danno improvviso al cervello causato da un problema della circolazione sanguigna.</div></div></div>
+    <div class="flashcard"><div class="flashcard-inner"><div class="front">Che cos'è la BPCO?</div><div class="back">È una malattia respiratoria cronica che rende difficile respirare. Spesso è legata al fumo.</div></div></div>
+    <div class="flashcard"><div class="flashcard-inner"><div class="front">Che cos'è l'Alzheimer?</div><div class="back">È una malattia neurodegenerativa che causa perdita progressiva della memoria e dell'autonomia.</div></div></div>
+    <div class="flashcard"><div class="flashcard-inner"><div class="front">Che cos'è l'incontinenza?</div><div class="back">È la perdita involontaria di urina o feci. Può creare disagio e ridurre l'autonomia.</div></div></div>
+  </div>
+</section>
+
+<section id="schema">
+  <h2>Schema grafico</h2>
+  <div class="schema-wrap">
+    <div class="tree">
+      <div class="node root">LONGEVITÀ</div>
+      <div class="line-down"></div>
+      <div class="horizontal"></div>
+      <div class="level">
+        <div class="branch">
+          <div class="node blueN">Perché si invecchia?</div>
+          <div class="children">
+            <div class="child">DNA</div>
+            <div class="child">Telomeri</div>
+            <div class="child">Radicali liberi</div>
+            <div class="child">Cellule staminali</div>
+          </div>
+        </div>
+        <div class="branch">
+          <div class="node greenN">Blue Zones</div>
+          <div class="children">
+            <div class="child">Movimento</div>
+            <div class="child">Alimentazione</div>
+            <div class="child">Relazioni</div>
+            <div class="child">Scopo nella vita</div>
+            <div class="child">Poco stress</div>
+          </div>
+        </div>
+        <div class="branch">
+          <div class="node orangeN">Ricercatori</div>
+          <div class="children">
+            <div class="child">Valter Longo</div>
+            <div class="child">Umberto Veronesi</div>
+          </div>
+        </div>
+        <div class="branch">
+          <div class="node purpleN">Invecchiamento degli organi</div>
+          <div class="children">
+            <div class="child">Pelle</div>
+            <div class="child">Muscoli</div>
+            <div class="child">Ossa</div>
+            <div class="child">Cuore</div>
+            <div class="child">Polmoni</div>
+            <div class="child">Cervello</div>
+          </div>
+        </div>
+        <div class="branch">
+          <div class="node redN">Malattie dell'anziano</div>
+          <div class="children">
+            <div class="child">Aterosclerosi</div>
+            <div class="child">Ictus</div>
+            <div class="child">BPCO</div>
+            <div class="child">Parkinson</div>
+            <div class="child">Alzheimer</div>
+            <div class="child">Edentulia</div>
+            <div class="child">Incontinenza</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button class="print" onclick="window.print()">Stampa / salva in PDF</button>
+  <p class="print-note">Suggerimento: da browser puoi usare “Stampa” e scegliere “Salva come PDF”.</p>
+</section>
+</main>
+
+<script>
+  document.querySelectorAll('.flashcard').forEach(card => {
+    card.addEventListener('click', () => card.classList.toggle('flipped'));
+  });
+</script>
+</body>
+</html>
